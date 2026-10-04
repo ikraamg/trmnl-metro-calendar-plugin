@@ -11,9 +11,8 @@ RSpec.describe 'cold' do
 
   { 'og_png' => 'busy-day', 'v2' => 'five-lines' }.each do |device, name|
     it "a cold page draws the board a warm one draws · #{device} · #{name}" do
-      # NOTE: trmnlp has no deviceScale, so the first render is only cold when nothing drew in this Firefox before it.
       options = MetroLayout.render_options({ device: }).merge(data: { data: MetroLayout.fixture(name)['metro'] }, transform: false)
-      cold = MetroLayout.checked_report(trmnl.render(**options))
+      cold = MetroLayout.checked_report(trmnl.render(**options, fresh_browser: true))
       warm = MetroLayout.checked_report(trmnl.render(**options))
 
       expect(digest(cold)).to eq(digest(warm)), 'the first board differs from the second'

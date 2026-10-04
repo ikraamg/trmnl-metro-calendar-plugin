@@ -47,7 +47,7 @@ RSpec.describe 'sweep' do
       # trmnlp's render keeps no transform output, so the transform is asked on its own, with the same inputs
       run = trmnl.transform(device: views[on][:device], orientation: views[on].fetch(:orientation, :landscape), **inputs)
       expect(run.error).to be_nil
-      expect(run.duration_ms).to be < 5000, 'the transform ran past the five seconds TRMNL allows'
+      expect(run).to stay_within_serverless_limits
       expect((run.data.dig('data', 'legend') || []).size).to be > 0, 'the example day came back empty'
       options = MetroLayout.render_options(views[on])
       report = MetroLayout.checked_report(trmnl.render(**options, **inputs))

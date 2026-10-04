@@ -237,3 +237,4 @@ style/*
 test/trmnl-report/
 test/trmnl/.shipped/
 !test/trmnl/lib/
+.trmnlp/

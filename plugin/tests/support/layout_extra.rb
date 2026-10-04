@@ -38,6 +38,7 @@ module MetroLayout
     raise "the layout threw: #{report['errors'].join(' | ')}" if report['errors']&.any?
     raise "the solver threw while laying the board out: #{report['metroError']}" if report['metroError']
     raise 'the layout never published data-metro-debug' unless report['debug']
+    raise "the page had problems: #{screen.problems.join(' | ')}" if screen.problems.any?
 
     report
   end

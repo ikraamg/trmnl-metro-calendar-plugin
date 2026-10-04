@@ -28,7 +28,7 @@ RSpec.describe 'shipped' do
                  mocks: MetroLayout.demo_mocks.merge(MetroLayout::NOT_FOUND) }
       squeezed = shipped.transform(**inputs)
       expect(squeezed.error).to be_nil
-      expect(squeezed.duration_ms).to be < 5000, 'the transform ran past the five seconds TRMNL allows'
+      expect(squeezed).to stay_within_serverless_limits
       expect((squeezed.data.dig('data', 'legend') || []).size).to be > 0, 'the squeezed transform drew nobody'
 
       expect(squeezed.data).to eq(trmnl.transform(**inputs).data)

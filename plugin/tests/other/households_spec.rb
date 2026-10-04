@@ -58,7 +58,7 @@ RSpec.describe 'households' do
                           variables: { trmnl: { user: { locale: (config['locale'] || 'en').split('-').first, time_zone_iana: zone },
                                                 plugin_settings: { instance_name: 'Household' } } })
     expect(run.error).to be_nil, "#{slug} #{time[:key]}: #{run.error}"
-    expect(run.duration_ms).to be < 5000, 'the transform ran past the five seconds TRMNL allows'
+    expect(run).to stay_within_serverless_limits
     { data: run.data['data'], config:, dir: folder }
   end
 
